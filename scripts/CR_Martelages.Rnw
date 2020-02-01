@@ -1,0 +1,716 @@
+\documentclass[a4paper,openany]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[french, english]{babel}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[svgnames]{colortbl, xcolor}
+% \usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{float} % Allows increasing the font size of specific fonts beyond LaTeX default specifications
+\usepackage{xifthen}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[justification = centering]{caption}
+\usepackage{booktabs}
+\usepackage{eurosym}
+\usepackage{multicol}
+\usepackage[section]{placeins}
+% \usepackage{uarial}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[toc,page]{appendix}
+\usepackage{scrextend}
+\usepackage{hyperref}
+\usepackage{fix-cm}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{pgfsys}
+\usepackage{keyval}
+% \usepackage{subfig}
+\usepackage{subcaption}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{chngcntr}
+% \usepackage{subcaption}
+% \usepackage[output-decimal-marker={,}]{siunitx}
+\usepackage[autolanguage, np]{numprint}
+% \usepackage[bottom]{footmisc}
+% \renewcommand{\familydefault}{\sfdefault}
+\usepackage[left = 1.5cm, right = 1.5cm, top = 1.5cm, bottom = 1.5cm]{geometry}
+
+
+%%%%%%%%%%%%%%%%%%%% Numéros des paragraphes
+\setcounter{tocdepth}{3}     % Dans la table des matieres
+\setcounter{secnumdepth}{3}  % Avec un numero.
+
+%%%%%%%%%%%%%%%%%%%% Séparation entre les colonnes de multicols
+\setlength{\columnsep}{1cm}
+
+%%%%%%%%%%%%%%%%%%%% Numérotation figures en fonction des sections :
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+% \RemoveFromReset{figure}{chapter}
+% \AddToReset{figure}{section}
+% \renewcommand{\thefigure}{\arabic{figure}}
+
+
+%%%%%%%%%%%%%%%%%%%% Redéfinition des noms de tableau et de figure (en ENG par défaut)
+\addto\captionsenglish{\def\tablename{Tableau}}
+\addto\captionsenglish{\def\figurename{Figure}}
+\addto\captionsenglish{\def\contentsname{Table des matières}}
+
+% \addto\captionsfrench{\def\tablename{Tableau}}
+% \addto\captionsfrench{\def\figurename{Figure}}
+
+
+%%%%%%%%%%%%%%%%%%%% Format des intitulés de chapitres
+\titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+
+%%%%%%%%%%%%%%%%%%%% Chapitre au milieu de la page
+\newcommand*{\fancychapterstyle}{%
+  \titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+  \titlespacing*{\chapter}{0pt}{250pt}{80pt}
+}
+
+\newcommand*{\standardchapterstyle}{%
+  \titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+  \titlespacing*{\chapter}{0pt}{0pt}{0pt}
+}
+
+% \titlespacing*{\chapter}{0pt}{0pt}{3cm}
+
+%%%%% sections
+% \titleformat{\section}[frame]
+% {}%
+% {}%
+% {5pt}
+% {\sffamily\Large\bfseries\filcenter\thesection\enspace}
+
+%%%%%%%%%%%%%%%%%%%% Numéros de page
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%% Réglage espace avant et après titres (left-before-after)
+\titlespacing*{\chapter}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\section}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\subsection}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\paragraph}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+
+%%%%%%%%%%%%%%%%%%%% Sections invisibles
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+
+%%%%%%%%%%%%%%%%%%%% Changement marge
+\newenvironment{changemargin}[2]{
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{0pt}%
+\setlength{\rightmargin}{0pt}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{0pt plus 1pt}%
+\addtolength{\leftmargin}{#1}%
+\addtolength{\rightmargin}{#2}%
+}
+\item 
+}{
+\end{list}
+}
+%%%% fin macro %%%%
+
+% ---------- A propos des pages où pas assez de texte pour remplir tous les espaces (ce qui conduit latex à répartir équitablement le texte => espaces verticaus dans le texte) :
+% "LaTeX uses \flushbottom for two-sided documents (book by default). Odd pages and even pages are forced to be aligned. In one-sided documents (article, report by default) LaTeX uses \raggedbottom, extra spaces will gone. cf. classes document.
+%
+% You can use \raggedbottom if you meet too many bad page breaks. However, it is preferred to prevent big boxes in your document. Use floats instead of put big tabulars and figures directly. For lists and section titles, it is often not too serious, be sure you put enough text for each sections."
+\raggedbottom
+
+
+
+%%%%%%%%%%%%%%%%%%%% Commande édition conditionnelle
+\newcommand{\EditIf}[4]{
+\ifthenelse{
+\equal{#1}{#2}
+}{#3}{#4}
+}
+%%%%%%%%%%%%%%%%%%%% Changement hauteurs des tableaux
+\renewcommand{\arraystretch}{1.5}
+
+<<OptionsGenerales, include = FALSE>>=
+opts_chunk$set(
+  concordance = T, tidy = F, warning = F, comment = F, error = F, echo = F, 
+  message = F, cache = F, eval = T, include = T,
+  
+  
+  size = 'normalsize', 
+  fig.pos = "H", fig.align = 'center', fig.show = 'hold', 
+  fig.path = 'Figures/', dev='pdf'
+)
+
+options(width=45)
+opts_knit$set(eval.after = 'fig.cap') # evaluate fig.cap after the chunk
+par(mar=c(0,0,0,0))
+@
+
+<<Librairies, echo=FALSE, warning=F, error=F, comment=F, message=F >>=
+library(xtable)
+library(ggplot2)
+library(reshape2)
+# library(plyr)
+library(scales)
+library(doBy)
+library(gridExtra)
+library(gdata)
+# library(raster)
+library(tcltk)
+library(rgdal)
+library(maptools)
+library(stringr)
+library(dplyr)
+library(tidyr)
+library(ggthemes)
+library(rgeos)
+library(tools)
+library(ggrepel)
+library(grid)
+library(openxlsx)
+library(fmsb)
+@
+\begin{document}
+
+<<Preparation, results='asis', size='scriptsize', out.width="\\textwidth">>=
+##### 0/ Définition du répertoire de travail (dossier Cartographie) #####
+rep <- "/Users/Valentin/Travail/Outils/Cartographie"
+setwd(rep)
+##### / \ #####
+
+##### 1/ Import de la base de données (classeur CR_Martelage.xlsx) #####
+# df_FILE <- 
+#   tk_choose.files(
+#     caption = "Choix du classeur contenant la base de données (CR_Martelage.xlsx)"
+#     )
+df_FILE <- 
+  "dossiers/Bugnot/ASLGF/data/excel/martelage/CR_Martelage.xlsx"
+df <- 
+  read.xlsx(df_FILE, sheet = "BD") %>% 
+  rename("contenance" = "Contenance.(en.ha)") %>% 
+  arrange(Proprietaire, Nom_Commune, section, numero, contenance) %>% 
+  select(
+    Proprietaire, Nom_Commune, section, numero, contenance,
+    Lot,
+    Attributs, Commentaires,
+    
+    Carte
+  ) %>% 
+  
+  # construction de la colonne Id
+  mutate(Id = paste0(Proprietaire, "-", Nom_Commune))
+##### / \ #####
+
+##### 2/ Calcul du nombre de lots #####
+# lots_NB <- with(df, length(unique(Proprietaire)))
+# prop_LIST <- with(df, unique(Proprietaire))
+
+# lots_NB <- dim(df)[1]
+# parcelles_LIST <- dim(df)[1]
+
+lots_LIST <- with(df, unique(Lot))
+lots_LIST <- lots_LIST[!is.na(lots_LIST)]
+lots_LIST <- sort(lots_LIST)
+lots_NB <- length(lots_LIST)
+@
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+% \newcolumntype{L}[1]{>{\raggedleft\arraybackslash}l{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{N}{@{}m{0pt}@{}}
+
+%%%%%%%%%%%%%%%%%%%%  Séparateur de colonnes
+\setlength{\columnseprule}{0.5pt}
+
+<<Fonctions>>=
+##### Fonction mise en forme texte (string vector) pour édition LaTeX #####
+utf82LaTeX <- function(string, ...) {
+  string <- paste0(string, ...)
+  string <- gsub("-", "--", string, fixed = T)
+  string <- gsub("—", "---", string, fixed = T)
+  string <- gsub("#", "\\#", string, fixed = T)
+  # string <- gsub("{", "\\{", string, fixed  = T)
+  # string <- gsub("}", "\\}", string, fixed  = T)
+  string <- gsub("$", "\\$", string, fixed = T)
+  string <- gsub("_", "\\_", string, fixed = T)
+  string <- gsub("&", "\\&", string, fixed = T)
+  string <- gsub("œ", "\\oe ", string, fixed = T)
+  string <- gsub("æ", "\\ae ", string, fixed = T)
+  string <- gsub("«", "\\og ", string, fixed = T)
+  string <- gsub("»", "\\fg{}", string, fixed = T)
+  string <- gsub("“", "``", string, fixed = T)
+  string <- gsub("”", "''", string, fixed = T)
+  string <- gsub("n°", "\\no ", string, fixed = T)
+  string <- gsub("N°", "\\No ", string, fixed = T)
+  string <- gsub("%", "\\%", string, fixed = T)
+  string <- gsub("°", "\\textdegree", string, fixed = T)
+  string <- gsub("‰", "\\textperthousand", string, fixed = T)
+  string <- gsub("€", "\\texteuro", string, fixed = T)
+  string <- gsub("^", "\\textasciicircum", string, fixed = T)
+  string <- gsub("~", "\\textasciitilde", string, fixed = T)
+
+  string <- gsub("ê","\u00EA", string, fixed = T)
+  string <- gsub("à","\u00E0", string, fixed = T)
+  string <- gsub("â","\u00E2", string, fixed = T)
+  string <- gsub("é","\u00E9", string, fixed = T)
+  string <- gsub("è","\u00E8", string, fixed = T)
+  string <- gsub("û","\u00FB", string, fixed = T)
+  string <- gsub("ü","\u00FC", string, fixed = T)
+  string <- gsub("î","\u00EE", string, fixed = T)
+  string <- gsub("ô","\u00F4", string, fixed = T)
+
+  string <- gsub("\u2028"," ", string, fixed = T)
+  string <- gsub("\\retour\\","
+
+                 ", string, fixed = T)
+  string <- gsub("\\saut\\","\\\\
+
+                 ", string, fixed = T)
+  # cat(string)
+  return(string)
+}
+
+##### 2/ Fonction pour éditer les différents attributs
+comment_CR <- function(df) {
+  attributs_LIST <- unique(df$Attributs)
+  
+  cat(
+    utf82LaTeX(
+      "\\begin{multicols}{2}\n[\n\\textbf{\\textcolor{gray}{\n\\large ",
+unique(df$parcelle),
+"\n}}\n]"
+    )
+  )
+  for (attrs in attributs_LIST) {
+    
+    # attrs <- attributs_LIST[1] # debug
+    comment_VECT <- df$Commentaires[df$Attributs == attrs]
+    comment_VECT <- if (is.na(comment_VECT)) "" else comment_VECT
+    indent <- 
+      # if (match(attrs, attributs_LIST) == 1) "\\noindent" else ""
+      "\\noindent"
+    cat(
+      utf82LaTeX(
+        indent,
+        "\\textbf{\\underline{", attrs, " :}} ", 
+        comment_VECT, 
+        # "\\\\"
+        "\\vspace{0.1cm} \\\\"
+        # "\\\\\n\n"
+      )
+    )
+  }
+  cat("\\end{multicols}")
+}
+@
+
+<<Impression_Fiches, results='asis', fig.pos="b", comment=F, error=F, size='scriptsize', cache=F, out.width="\\textwidth">>=
+
+##### Initialisation boucle #####
+for (lot in lots_LIST) {
+  # lot <- prop_LIST[1] # debug
+  # lot <- 2 # test
+  # lot <- lots_LIST[1]
+  
+  ### Extraction des données
+  # id <- df$Id[lot]
+  df1 <-
+    df %>%
+    filter(Lot == lot) %>% 
+    mutate(parcelle = paste0(section, numero)) %>% 
+    select(Lot, Nom_Commune, parcelle) %>% 
+    distinct() %>% 
+    group_by(Lot, Nom_Commune) %>% 
+    summarise(parcelle = paste0(parcelle, collapse = ", ")) %>% 
+    ungroup() %>% 
+    mutate(parcelle = paste0(Nom_Commune, " : ", parcelle))
+  
+  attrs_DF <- 
+    df %>% 
+    filter(Lot == lot) %>% 
+    mutate(parcelle = paste0(section, numero)) %>% 
+    select(Proprietaire, Lot, Carte, Nom_Commune, parcelle, Attributs, Commentaires) %>% 
+    spread(Attributs, Commentaires) %>% 
+    group_by_at(
+      c(
+        "Proprietaire", "Lot", "Carte", "Nom_Commune", "Accès", "Autres remarques", 
+        "Cloisonnements", "Composition", "Diamètre moyen", "Limites"
+      )
+    ) %>% 
+    summarise(parcelle = paste0(parcelle, collapse = ", ")) %>% 
+    mutate(parcelle = paste0(Nom_Commune, " : ", parcelle)) %>% 
+    group_by_at(
+      c(
+        "Proprietaire", "Lot", "Carte", "Accès", "Autres remarques", 
+        "Cloisonnements", "Composition", "Diamètre moyen", "Limites"
+      )
+    ) %>% 
+    summarise(
+      parcelle = paste0(parcelle, collapse = " - "),
+      Nom_Commune = paste0(Nom_Commune, collapse = ", ")
+    ) %>% 
+    ungroup() %>% 
+    gather(Attributs, Commentaires, "Accès":"Limites") %>% 
+    mutate(
+      Attributs = factor(
+        Attributs, 
+        levels = c(
+          "Accès", "Cloisonnements", "Diamètre moyen", 
+          "Composition", "Limites", "Autres remarques"
+        )
+      )
+    ) %>% 
+    arrange(Proprietaire, Lot, Carte, parcelle, Attributs)
+  
+    df2 <- 
+      attrs_DF
+    
+    # Entete du lot
+    lot_NUM <- with(df2, unique(Lot))
+    lot_PROPRIO <- with(df2, unique(Proprietaire))
+    lot_COMMUNE <- with(df2, unique(Nom_Commune))
+    lot_PARCELLES <- paste0(with(df2, unique(parcelle)), collapse = "\\\\")
+    cat(
+      utf82LaTeX(
+        "\\noindent\n\\fbox{
+  \\parbox{\\textwidth}{\\centering 
+  \\textbf{
+  \\Large
+  LOT ", lot_NUM, " : ", lot_COMMUNE, "}\\\\
+  \\vspace{0.25cm}", 
+  lot_PARCELLES, "
+  }
+  }\\\\"
+      )
+    )
+    
+    parcelle_LIST <- unique(attrs_DF$parcelle)
+  for (p in parcelle_LIST) {
+    
+    df3 <- 
+      attrs_DF %>% 
+      filter(parcelle == p) %>% 
+      select(Lot, parcelle, Attributs, Commentaires) %>% 
+      comment_CR()
+      # mutate(
+      #   Commentaires = utf82LaTeX(Commentaires),
+      #   Attributs = utf82LaTeX(Attributs),
+      #   
+      #   Commentaires = str_wrap(Commentaires, 100),
+      #   Attributs = paste0("\\textbf{", Attributs, " :}")
+      # )
+     # Format1 <-c("M{0cm}", "L{6cm}", "M{11cm}", "L{6cm}", "L{1cm}")
+
+     # print(
+     #   xtable(
+     #     df2,
+     #     align = c("M{0cm}", "L{3cm}", "L{13cm}"),
+     #   floating = F
+     #   ),
+     #   include.colnames = F,
+     #   # scalebox= ech,
+     #   include.rownames = F,
+     #   # latex.environments = "center",
+     #   sanitize.text.function = function(x){return(x)},
+     #   table.placement = "H",
+     #   hline.after = NULL,
+     #   size = "\\footnotesize"
+     # )
+     
+     # cat("\n\\vspace{0.5cm}\n\n")
+  }
+     
+     # cat("\\vspace{1cm}")
+     carte <- unique(attrs_DF$Carte)
+     cat(
+       paste0(
+         "\\begin{center}\n\\includegraphics[width=\\textwidth]{", 
+         carte, 
+         "}\n\\end{center}"
+       )
+     )
+#   titre <-
+#     attrs_DF
+#         data.frame(
+#           info1 = c(Nom,NomPlac),
+#           milieu = c(
+#             "AFI : Fiche de mesure",
+#             paste0("- Cycle ", DernierCycle, " -")
+#           ),
+#           text2 = c("              Date :","Opérateurs :"),
+#           stringsAsFactors = F
+#         )
+#   
+#   
+#   acces_VECT
+#   summarise(Parcelle)
+#     dplyr::filter(NumPlac == plac) %>%
+#     dplyr::mutate(
+#       NumPlac = NULL,
+#       CodeEcolo = ifelse(
+#         nchar(CodeEcolo) > 14,
+#         paste0( str_sub(CodeEcolo, 1, 14), " ", str_sub(CodeEcolo, 15, -1) ),
+#         CodeEcolo
+#       ),
+#       CodeEcolo = str_trim(CodeEcolo, "both"),
+#       Observations = str_trim(Observations, "both"),
+#       Observations =
+#         ifelse(is.na(Observations), Observations, utf82LaTeX(Observations))
+#     )
+#     # rbind(df[1:15,]) # rajout d'une vingtaine de lignes supplémentaire
+#   # tab <- tab[45,]
+#   # tab$Observations <- "TX"
+#   # gsub(" ","",tab$Observations, fixed=T)
+#   # str_trim(tab$Observations, "right")
+#   # tab$NumPlac <- NULL
+#   # names(tab)[names(tab) %in% "NumArbre"] <- "Num"
+#   nb <- dim(tab)[1]
+#   # tab <- rbind(tab,df) # ---- Insertion de lignes vides
+#   # nbtot <- dim(tab)[1]
+#   OverChar <- unique(which(nchar(tab$CodeEcolo) > 14 | nchar(tab$Observations) > 14))
+#   nb <- nb + length(OverChar)
+#   NbSheet <- ceiling(nb/NbLignes)
+#   # -------------- Remplissage entête
+#   Count = 0
+# 
+#   # for (j in 1:ceiling(nb/NbLignes)) {
+#   for (j in 1:NbSheet) {
+#     NomPlac <-
+#       paste0( ifelse(lang == "FRA", "Placette : ", "Plot : "),
+#               plac, " (", j, "/", NbSheet, ")"
+#       )
+#     temp <- tab[(Count + 1):(Count + NbLignes), ]
+#     # ----- Gestion des lignes si trop de texte ----- #
+#     temp <-
+#       temp %>%
+#       mutate(
+#         OverChar = ifelse(
+#           nchar(CodeEcolo, keepNA = F) > 15 | nchar(Observations, keepNA = F) > 14, # Repère les chaines de caractère trop longues
+#           2, 1
+#         ),
+#         OverChar = ifelse(
+#           OverChar == 1,
+#           OverChar,
+#           ifelse(
+#             nchar(CodeEcolo, keepNA = F) > nchar(Observations, keepNA = F),
+#             CodeEcolo,
+#             Observations
+#           )
+#         ),
+#         OverChar = ifelse(
+#           OverChar == 1,
+#           OverChar,
+#           ceiling(nchar(OverChar, keepNA = F) / 14)
+#         ), # * 3/4   * 9/10
+#         Count = cumsum(OverChar)
+#       ) %>%
+#       filter(Count <= NbLignes) %>%
+#       mutate(
+#         OverChar = NULL,
+#         Count = NULL
+#       )
+#     NbLignes2 <- dim(temp)[1]
+# #     # Ancienne méthode de calage des tableaux :
+# #     OverChar2 <- unique(which(nchar(temp$CodeEcolo) > 15 | nchar(temp$Observation) > 15))
+# #       nbRows_cumul <- 0
+# #       #  Si chaînes de caractères trop longues, réduction du nombre de lignes par pages.
+# #       # Pblme = quand
+# #     if (length(OverChar2) > 0) {
+# #       for (i in 1:length(OverChar2)) {
+# #         l <- max(nchar(
+# #           c(temp$CodeEcolo[OverChar2[i]],
+# #             temp$Observation[OverChar2[i]])))
+# #         nbRows <- ceiling(l/15) - 1
+# #         nbRows_cumul <- nbRows_cumul + nbRows
+# #       }
+# #     }
+# #     # NbLignes2 <- NbLignes - length(OverChar2)
+# #     NbLignes2 <- NbLignes - nbRows_cumul
+# # # Fin ancienne méthode
+# 
+# 
+#     temp2 <- tab[(Count + 1):(Count + NbLignes2), ]
+#     rws <- seq(1, NbLignes2 - 1, by = 2)
+#     col <- rep("\\rowcolor[gray]{0.95}", length(rws))
+#     Count <- Count + dim(temp2)[1]
+#     #     # if (dim(tab)[1] >= NbLignes) {
+#     #     # ----- Gestion des lignes si trop de texte ----- #
+#     #     MaxChar <- max(c(max(nchar(tab$NoteEcolo), na.rm=T),
+#     #                      max(nchar(tab$Observation),na.rm=T)),
+#     #                    na.rm=T)
+#     #     if (MaxChar > 11) {
+#     #       NbLignes2 <- NbLignes - length(unique(which(nchar(tab$NoteEcolo) > 15 |
+#     #                                                     nchar(tab$Observation) > 15)))
+#     #       rws <- seq(1, NbLignes2-1, by = 2)
+#     #       col <- rep("\\rowcolor[gray]{0.95}", length(rws))
+#     #     } else {
+#     #       NbLignes2 <- NbLignes
+#     #       rws <- seq(1, NbLignes-1, by = 2)
+#     #       col <- rep("\\rowcolor[gray]{0.95}", length(rws))
+#     #     }  #Modif à apporter : si code ecolo trop important, sauter une ligne...
+#     # # ----- Autre ----- #
+#     #     temp <- tab[1:NbLignes2,]
+#     #     tab <- tab[(NbLignes2+1):(nb-Count),]
+#     #     Count <- Count+NbLignes2
+#     #     } else {
+#     #       temp <- rbind(tab,df[1:(NbLignes-dim(tab)[1]),])
+#     #       NbLignes2 <- NbLignes
+#     #       rws <- seq(1, NbLignes-1, by = 2)
+#     #       col <- rep("\\rowcolor[gray]{0.95}", length(rws))
+#     #     }
+#     #     #     if (nb < NbLignes*j) temp[nb-(j-1)*NbLignes+1,1] <- dernierNum[i]+1 # Ecriture du numéro du nouvel arbre
+#     #     if (j > 1)  NomPlac <- paste0(NomPlac,
+#     #                                   " (suite ",
+#     #                                   j-1,"/",ceiling(nb/NbLignes)-1,
+#     #                                   ")")
+# 
+#     # ------------------------------------------- Préparation de l'entête
+#     if (lang == "FRA") {
+#       titre <-
+#         data.frame(
+#           info1 = c(Nom,NomPlac),
+#           milieu = c(
+#             "AFI : Fiche de mesure",
+#             paste0("- Cycle ", DernierCycle, " -")
+#           ),
+#           text2 = c("              Date :","Opérateurs :"),
+#           stringsAsFactors = F
+#         )
+#     } else {
+#       titre <-
+#         data.frame(
+#           info1 = c(Nom, NomPlac),
+#           milieu = c(
+#             "AFI : Measure sheet",
+#             paste0("- Cycle ", DernierCycle, " -")
+#           ),
+#           text2 = c("              Date :","Operators :"),
+#           stringsAsFactors = F)
+#     }
+# 
+#     # -------------- Impression entête
+#     Format1 <-c("M{0cm}", "L{6cm}", "M{11cm}", "L{6cm}")
+#     print(
+#       xtable(
+#         titre,
+#         align = Format1
+#       ),
+#       include.colnames = F,
+#       # scalebox= ech,
+#       include.rownames = F,
+#       floating = F,
+#       # latex.environments = "center",
+#       table.placement = "ht",
+#       hline.after = NULL
+#     )
+# 
+# 
+#     # -------------- Impression Données
+#     # Format2 <- c("|M{0cm}","|M{1cm}","|M{1.8cm}","|M{1.6cm}","|M{1.6cm}",
+#     #              rep("|M{1.3cm}",dim(tab)[2]-6),
+#     #              "|M{2.3cm}","|M{2.3cm}|")
+#         # Format2 <- c("|M{0cm}","|M{1cm}",
+#         #          # "|M{1cm}", pour Cycle
+#         #          "|M{1.5cm}","|M{1.3cm}","|M{1.4cm}",
+#         #
+#         #          rep("|M{1.1cm}",9),
+#         #          "|M{2.3cm}","|M{2.3cm}|",
+#         #          rep("M{1.1cm}|",dim(tab)[2]-15))
+#     Format2 <- c(
+#       "|M{0cm}", "|M{1cm}",
+#       # "|M{1cm}", pour Cycle
+#       "|M{2.5cm}", "|M{1.3cm}", "|M{1.4cm}",
+# 
+#       rep("|M{1.1cm}", 9),
+#       "|c", "|c|",
+#       rep("M{1.1cm}|", dim(tab)[2] - 15)
+#     )
+#     # Format2 <- c(rep("|c",dim(temp)[2]),"|c|")
+#     #     tp <- xtable(temp, digits=c(rep(0,4),1,rep(0,3),2,rep(0,7)))
+#     #     align(tp) <- "|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l"
+#     #     print(tp,add.to.row = list(pos = as.list(rws), command = col),
+#     #           scalebox= ech, include.rownames=F, floating=F, hline.after=c(-1:NbLignes),
+#     #           tabular.environment="tabularx",width="\\textwidth")
+#     cat("\\vspace{1cm}
+# 
+#     \\FloatBarrier")
+#     if (lang == "ENG") {
+#       temp2 <- Translate(temp2, lang, "Arbres")
+#       Format2 <- c(
+#         "|M{0cm}", "|M{1cm}", "|M{1.8cm}", "|M{1.3cm}", "|M{1.4cm}",
+#         rep("|M{1.1cm}", dim(tab)[2] - 6),
+#         "|M{2.5cm}", "|M{2.3cm}|"
+#       )
+#       temp2 <- temp2 %>% rename(Num = TreeNum)
+#       pos <- which(
+#         names(temp2) %in% c(
+#           "TopHeight", "CrownHeight", "CrownRad1",
+#           "CrownDiam1", "CrownRad2", "CrownDiam2"
+#         )
+#       )
+#       # names(temp2)[pos] <- paste0("\\rotatebox{90}{",
+#       #                             names(temp2)[pos],
+#       #                             "}")
+#       names(temp2)[pos] <- c(
+#         "Top\nHeight", "Crown\nHeight", "Crown\nRad1",
+#         "Crown\nDiam1", "Crown\nRad2", "Crown\nDiam2"
+#       )
+#     } else {
+#     temp2 <- temp2 %>% rename(Num = NumArbre)
+#     }
+#     print(
+#       xtable(
+#         temp2,
+#         align = Format2,
+#         digits = c(rep(0, 4), 1, rep(0, 2), rep(1, 6), rep(0, 3), rep(0, 2))
+#       ),
+#       add.to.row = list(pos = as.list(rws), command = col),
+#       # scalebox= ech,
+#       include.rownames = F,
+#       floating = F,
+#       # latex.environments = "center",
+#       hline.after = c(-1:NbLignes2),
+#       sanitize.text.function = function(x) {return(x)},
+#       size = "normalsize"
+#     )
+# 
+    cat("\\newpage")
+#   }
+}
+@
+
+
+\end{document}

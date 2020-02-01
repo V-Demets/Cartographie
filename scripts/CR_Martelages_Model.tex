@@ -1,0 +1,297 @@
+\documentclass[a4paper,openany]{book}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[french, english]{babel}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[svgnames]{colortbl, xcolor}
+% \usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{float} % Allows increasing the font size of specific fonts beyond LaTeX default specifications
+\usepackage{xifthen}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[justification = centering]{caption}
+\usepackage{booktabs}
+\usepackage{eurosym}
+\usepackage{multicol}
+\usepackage[section]{placeins}
+% \usepackage{uarial}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[toc,page]{appendix}
+\usepackage{scrextend}
+\usepackage{hyperref}
+\usepackage{fix-cm}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{pgfsys}
+\usepackage{keyval}
+% \usepackage{subfig}
+\usepackage{subcaption}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{chngcntr}
+% \usepackage{subcaption}
+% \usepackage[output-decimal-marker={,}]{siunitx}
+\usepackage[autolanguage, np]{numprint}
+% \usepackage[bottom]{footmisc}
+% \renewcommand{\familydefault}{\sfdefault}
+\usepackage[left = 1.5cm, right = 1.5cm, top = 1.5cm, bottom = 1.5cm]{geometry}
+
+
+%%%%%%%%%%%%%%%%%%%% Numéros des paragraphes
+\setcounter{tocdepth}{3}     % Dans la table des matieres
+\setcounter{secnumdepth}{3}  % Avec un numero.
+
+%%%%%%%%%%%%%%%%%%%% Séparation entre les colonnes de multicols
+\setlength{\columnsep}{1cm}
+
+%%%%%%%%%%%%%%%%%%%% Numérotation figures en fonction des sections :
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+% \RemoveFromReset{figure}{chapter}
+% \AddToReset{figure}{section}
+% \renewcommand{\thefigure}{\arabic{figure}}
+
+
+%%%%%%%%%%%%%%%%%%%% Redéfinition des noms de tableau et de figure (en ENG par défaut)
+\addto\captionsenglish{\def\tablename{Tableau}}
+\addto\captionsenglish{\def\figurename{Figure}}
+\addto\captionsenglish{\def\contentsname{Table des matières}}
+
+% \addto\captionsfrench{\def\tablename{Tableau}}
+% \addto\captionsfrench{\def\figurename{Figure}}
+
+
+%%%%%%%%%%%%%%%%%%%% Format des intitulés de chapitres
+\titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+
+%%%%%%%%%%%%%%%%%%%% Chapitre au milieu de la page
+\newcommand*{\fancychapterstyle}{%
+  \titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+  \titlespacing*{\chapter}{0pt}{250pt}{80pt}
+}
+
+\newcommand*{\standardchapterstyle}{%
+  \titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+  \titlespacing*{\chapter}{0pt}{0pt}{0pt}
+}
+
+% \titlespacing*{\chapter}{0pt}{0pt}{3cm}
+
+%%%%% sections
+% \titleformat{\section}[frame]
+% {}%
+% {}%
+% {5pt}
+% {\sffamily\Large\bfseries\filcenter\thesection\enspace}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% Réglage espace avant et après titres (left-before-after)
+\titlespacing*{\chapter}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\section}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\subsection}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\paragraph}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+
+%%%%%%%%%%%%%%%%%%%% Sections invisibles
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+
+%%%%%%%%%%%%%%%%%%%% Changement marge
+\newenvironment{changemargin}[2]{
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{0pt}%
+\setlength{\rightmargin}{0pt}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{0pt plus 1pt}%
+\addtolength{\leftmargin}{#1}%
+\addtolength{\rightmargin}{#2}%
+}
+\item 
+}{
+\end{list}
+}
+%%%% fin macro %%%%
+
+% ---------- A propos des pages où pas assez de texte pour remplir tous les espaces (ce qui conduit latex à répartir équitablement le texte => espaces verticaus dans le texte) :
+% "LaTeX uses \flushbottom for two-sided documents (book by default). Odd pages and even pages are forced to be aligned. In one-sided documents (article, report by default) LaTeX uses \raggedbottom, extra spaces will gone. cf. classes document.
+%
+% You can use \raggedbottom if you meet too many bad page breaks. However, it is preferred to prevent big boxes in your document. Use floats instead of put big tabulars and figures directly. For lists and section titles, it is often not too serious, be sure you put enough text for each sections."
+\raggedbottom
+
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%% Commande édition conditionnelle
+\newcommand{\EditIf}[4]{
+\ifthenelse{
+\equal{#1}{#2}
+}{#3}{#4}
+}
+%%%%%%%%%%%%%%%%%%%% Changement hauteurs des tableaux
+\renewcommand{\arraystretch}{1.5}
+
+
+
+
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+%%%%%%%%%%%%%%%%%%%%  Séparateur de colonnes
+\setlength{\columnseprule}{0.5pt}
+\begin{document}
+
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+% \newcolumntype{L}[1]{>{\raggedleft\arraybackslash}l{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{N}{@{}m{0pt}@{}}
+
+
+
+%\chapter{SAINT--MEDARD--EN--FOREZ : B1003}
+\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+%  \textcolor{gray}{
+  \textbf{
+  \Large
+  LOT 1 : SAINT--MEDARD--EN--FOREZ}\\ %}
+  \vspace{0.25cm}
+  parcelles B1003 et B1236, B1398, B1400
+  }
+  }\\
+
+\begin{multicols}{2}
+[
+\textcolor{gray}{
+\textbf{
+\large 
+SAINT--MEDARD--EN--FOREZ : B1003}
+}
+]
+\noindent\textbf{\underline{Accès :}} par la route (borde étang + rupt)\\
+
+\noindent\textbf{\underline{Cloisonnements :}} aucun\\
+
+\noindent\textbf{\underline{Diamètre moyen :}} 15 cm\\
+
+\noindent\textbf{\underline{Composition :}} CHA (95 \%) / CHT dépérissant ou sec (5 \%)\\
+
+\noindent\textbf{\underline{Limites :}} évidentes\\
+
+\noindent\textbf{\underline{Autres remarques :}} quelques belles grumes de GB/TGB de FRE (entre autres). Pas de prélèvements dans ces classes de diamètre. Taillis presque entièrement marqué (lot possible ?)\\
+\end{multicols}
+
+\vspace{0.5 cm}
+
+\begin{multicols}{2}
+[
+\textcolor{gray}{
+\textbf{
+\large SAINT--MEDARD--EN--FOREZ : B1236, B1398, B1400
+}}
+]
+
+\noindent\textbf{\underline{Accès :}} il existe des pistes malheureusement trop étroites (calibre 4x4) sur toute la zone (apparemment dû à la chasse). 1 piste à l'Ouest de la combe et 3 à l'Est (cf carte)\\
+
+\noindent\textbf{\underline{Cloisonnements :}} aucun\\
+
+\noindent\textbf{\underline{Diamètre moyen :}} très variable. Uniquement du taillis. Diamètre 10 -- 15 le plus fréquemment rencontré, mais attention il y a quelques gros taillis (BM/GB) de CHA et de CHT (dépérissants). Moyenne globale à 15 -- 20 cm\\
+
+\noindent\textbf{\underline{Composition :}} CHA (30 \%) / ERP (15 \%) / CHE (10 \%) / FRE (20 \%) /  CHT (25 \%)\\
+
+\noindent\textbf{\underline{Limites :}} rematérialisées sur le versant situé à l'Est\\
+
+\noindent\textbf{\underline{Autres remarques :}} l'exploitation s'annonce difficle à cause de la forte pente vers le bas de la combe.
+Quelques grumes de CHE dépérissants à prélever ?
+Problème de cadastre à l'entrée de la parcelle à cause d'un décalage avec l'IGN => des DOU ont été prélevés par le voisin -- à clarifier !
+\end{multicols}
+
+\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/output_5.jpg}
+\end{center}
+
+
+\end{document}

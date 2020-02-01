@@ -1,0 +1,674 @@
+\documentclass[a4paper,openany]{book}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[french, english]{babel}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[svgnames]{colortbl, xcolor}
+% \usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{float} % Allows increasing the font size of specific fonts beyond LaTeX default specifications
+\usepackage{xifthen}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[justification = centering]{caption}
+\usepackage{booktabs}
+\usepackage{eurosym}
+\usepackage{multicol}
+\usepackage[section]{placeins}
+% \usepackage{uarial}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[toc,page]{appendix}
+\usepackage{scrextend}
+\usepackage{hyperref}
+\usepackage{fix-cm}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{pgfsys}
+\usepackage{keyval}
+% \usepackage{subfig}
+\usepackage{subcaption}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{chngcntr}
+% \usepackage{subcaption}
+% \usepackage[output-decimal-marker={,}]{siunitx}
+\usepackage[autolanguage, np]{numprint}
+% \usepackage[bottom]{footmisc}
+% \renewcommand{\familydefault}{\sfdefault}
+\usepackage[left = 1.5cm, right = 1.5cm, top = 1.5cm, bottom = 1.5cm]{geometry}
+
+
+%%%%%%%%%%%%%%%%%%%% Numéros des paragraphes
+\setcounter{tocdepth}{3}     % Dans la table des matieres
+\setcounter{secnumdepth}{3}  % Avec un numero.
+
+%%%%%%%%%%%%%%%%%%%% Séparation entre les colonnes de multicols
+\setlength{\columnsep}{1cm}
+
+%%%%%%%%%%%%%%%%%%%% Numérotation figures en fonction des sections :
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+% \RemoveFromReset{figure}{chapter}
+% \AddToReset{figure}{section}
+% \renewcommand{\thefigure}{\arabic{figure}}
+
+
+%%%%%%%%%%%%%%%%%%%% Redéfinition des noms de tableau et de figure (en ENG par défaut)
+\addto\captionsenglish{\def\tablename{Tableau}}
+\addto\captionsenglish{\def\figurename{Figure}}
+\addto\captionsenglish{\def\contentsname{Table des matières}}
+
+% \addto\captionsfrench{\def\tablename{Tableau}}
+% \addto\captionsfrench{\def\figurename{Figure}}
+
+
+%%%%%%%%%%%%%%%%%%%% Format des intitulés de chapitres
+\titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+
+%%%%%%%%%%%%%%%%%%%% Chapitre au milieu de la page
+\newcommand*{\fancychapterstyle}{%
+  \titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+  \titlespacing*{\chapter}{0pt}{250pt}{80pt}
+}
+
+\newcommand*{\standardchapterstyle}{%
+  \titleformat{\chapter}[frame]
+{\normalsize}%
+{\filright\sffamily\Large%
+\enspace Chapitre \thechapter\enspace}%
+{8pt}
+{\sffamily\Huge\bfseries\filcenter}
+  \titlespacing*{\chapter}{0pt}{0pt}{0pt}
+}
+
+% \titlespacing*{\chapter}{0pt}{0pt}{3cm}
+
+%%%%% sections
+% \titleformat{\section}[frame]
+% {}%
+% {}%
+% {5pt}
+% {\sffamily\Large\bfseries\filcenter\thesection\enspace}
+
+%%%%%%%%%%%%%%%%%%%% Numéros de page
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%% Réglage espace avant et après titres (left-before-after)
+\titlespacing*{\chapter}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\section}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\subsection}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+\titlespacing*{\paragraph}
+{0pt}{0.2cm plus 0.25cm minus 0.25cm}{0.2cm plus 0.25cm minus 0.25cm}
+
+%%%%%%%%%%%%%%%%%%%% Sections invisibles
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+
+%%%%%%%%%%%%%%%%%%%% Changement marge
+\newenvironment{changemargin}[2]{
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{0pt}%
+\setlength{\rightmargin}{0pt}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{0pt plus 1pt}%
+\addtolength{\leftmargin}{#1}%
+\addtolength{\rightmargin}{#2}%
+}
+\item 
+}{
+\end{list}
+}
+%%%% fin macro %%%%
+
+% ---------- A propos des pages où pas assez de texte pour remplir tous les espaces (ce qui conduit latex à répartir équitablement le texte => espaces verticaus dans le texte) :
+% "LaTeX uses \flushbottom for two-sided documents (book by default). Odd pages and even pages are forced to be aligned. In one-sided documents (article, report by default) LaTeX uses \raggedbottom, extra spaces will gone. cf. classes document.
+%
+% You can use \raggedbottom if you meet too many bad page breaks. However, it is preferred to prevent big boxes in your document. Use floats instead of put big tabulars and figures directly. For lists and section titles, it is often not too serious, be sure you put enough text for each sections."
+\raggedbottom
+
+
+
+%%%%%%%%%%%%%%%%%%%% Commande édition conditionnelle
+\newcommand{\EditIf}[4]{
+\ifthenelse{
+\equal{#1}{#2}
+}{#3}{#4}
+}
+%%%%%%%%%%%%%%%%%%%% Changement hauteurs des tableaux
+\renewcommand{\arraystretch}{1.5}
+
+
+
+
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+% \newcolumntype{L}[1]{>{\raggedleft\arraybackslash}l{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{N}{@{}m{0pt}@{}}
+
+%%%%%%%%%%%%%%%%%%%%  Séparateur de colonnes
+\setlength{\columnseprule}{0.5pt}
+
+
+
+\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 1 : SAINT--MEDARD--EN--FOREZ}\\
+  \vspace{0.25cm}SAINT--MEDARD--EN--FOREZ : B1003\\SAINT--MEDARD--EN--FOREZ : B1236, B1398, B1400
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large SAINT--MEDARD--EN--FOREZ : B1003
+}}
+]\noindent\textbf{\underline{Accès :}} par la route (borde étang + rupt)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Charme (95 \%) / Châtaignier dépérissant ou sec (5 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} quelques belles grumes de GB/TGB de Frêne (entre autres). Pas de prélèvements dans ces classes de diamètre. Taillis presque entièrement marqué (lot possible ?)\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large SAINT--MEDARD--EN--FOREZ : B1236, B1398, B1400
+}}
+]\noindent\textbf{\underline{Accès :}} il existe des pistes trop étroites (calibre 4x4) sur toute la zone (apparemment dû à la chasse). 1 piste à l'Ouest de la combe et 3 à l'Est (cf carte)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} très variable -- uniquement du taillis. Diamètre 10 -- 15 le plus fréquemment rencontré, mais attention il y a quelques gros taillis (BM/GB) de Charme et de Châtaignier (dépérissants). Moyenne globale à 15 -- 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Charme (30 \%) / ERP (15 \%) / Chêne (10 \%) / Frêne (20 \%) /  Châtaignier (25 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées sur le versant situé à l'Est\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} l'exploitation s'annonce difficle à cause de la forte pente vers le bas de la combe. \\
+Quelques grumes de Chêne dépérissants à prélever ? \\
+Problème de cadastre à l'entrée de la parcelle à cause d'un décalage avec l'IGN => des Douglas ont été prélevés par le voisin -- à clarifier !\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_1.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 2 : CHEVRIERES}\\
+  \vspace{0.25cm}CHEVRIERES : B210\\CHEVRIERES : B232
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large CHEVRIERES : B210
+}}
+]\noindent\textbf{\underline{Accès :}} par la route au Sud ou via le chemin agricole au Nord (chemin privé carossable)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun. Il existe un reste de collecteur (?)  sur la partie haute de la parcelle. Le traçage des cloisos depuis le Sud paraît trop ardu (pente forte) -- problème à résoudre\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 35 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Châtaignier (70 \%) -- part dépérissant / Chêne (15 \%) / Charme + Hêtre (15 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} taillis de grosses dimensions (Châtaignier) souvent dépérissants. Les chênes ne font pas encore la maille (40 cm) mais approchent les 30 -- 35 cm.\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large CHEVRIERES : B232
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ situé à l'Est ou par le chemin agricole au Sud (chemin privé carossable)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 --20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Charme + Hêtre (60 \%) / Châtaignier (40 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} parcelle étroite. Belles tiges de futaie.\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_2.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 3 : LARAJASSE}\\
+  \vspace{0.25cm}LARAJASSE : C81
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large LARAJASSE : C81
+}}
+]\noindent\textbf{\underline{Accès :}} par le coin Nord--Est : squelette de piste débouchant sur un champ. Autre piste : portion de 50 m le long de la courbe de niveau à la limite Sud\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} impossible à cause de la pente trop forte depuis le haut de versant+ pas de point de vidange\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis (zone Est) : 20 -- 25 cm; grumes (zone Est) : voir feuille "Cube" \\
+taillis (zone Nord--Ouest) : 10 -- 15 cm; grumes (zone Nord--Ouest) : voir feuille "Cube" \\\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} taillis (zone Est) : Erable S (20 \%) / Chêne (20 \%) / Charme (20 \%) / Merisier (20 \%) / Frêne (20 \%); grumes (zone Est) : voir feuille "Cube"\\
+taillis (zone Nord--Ouest) : Charme (100 \%); grumes  (zone Nord--Ouest) : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} beaucoup de Pin S secs ou dépérissants. \\ Attention : pineraie martelée mais pas au programme initialement\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_3.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 4 : LARAJASSE}\\
+  \vspace{0.25cm}LARAJASSE : C85
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large LARAJASSE : C85
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ du bas ou par le champ du haut (Ouest ou Est). Pente forte\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} pente jugée trop forte. A câbler par le bas ?\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis : 15 -- 20 cm; grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} taillis : Charme (95 \%) / Chêne (5 \%). grumes : voir feuille Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} Attention : peuplement de Sapin a été martelé mais pas au programme initialement\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_4.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 5 : LARAJASSE}\\
+  \vspace{0.25cm}LARAJASSE : C290\\LARAJASSE : C298
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large LARAJASSE : C290
+}}
+]\noindent\textbf{\underline{Accès :}} par le chemin agricole situé en bas (au Nord)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} zone Nord--Ouest : 4 cloisonnements numérotés. 1er = azimut 60 gr; 2, 3, 4 = Az 62,5 gr. Entraxe de 22 m.\\
+Un collecteur a été marqué en haut de versant Ouest.\\
+zone Est : 3 cloisonnements marqués (voir plan -- schématisés A, B et C). A = azimut 162,5gr -- B, C = azimut 135 gr.\\
+Entraxe (au plus large) = 25/26m entre A et B, 22m entre B et C.\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis : 20 -- 25 cm dans la partie Nord--Ouest / 10 -- 15 cm dans la partie Est \\ Grumes : voir feuille Cube\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} taillis (zone Sud--Ouest) : poche de Frêne / Merisier \\
+taillis (zone Sud--Ouest) : Charme (90 \%) / Frêne (5 \%) / Merisier + Erable P + Chêne (5 \%) \\
+taillis (zone Est) : Charme (80 \%) / Frêne (5 \%) / Erable S (5 \%) / Merisier (5 \%) /Chêne (5 \%) \\
+grumes : voir feuille "Cube". GB de Douglas et de Chêne présents à l'Est\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} \vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large LARAJASSE : C298
+}}
+]\noindent\textbf{\underline{Accès :}} par le chemin agricole situé en haut (au Sud)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} possible si des pistes sont ouvertes (pelle)\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis : 30 -- 35 cm à l'E et à l'O \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Châtaignier (3 \%) / Charme (85 \%) / TIL (10 \%) / Pin S (2 \%) -- voir feuille "Cube" pour le P.S\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} le potentiel de commercialisation de la 2ème partie située au Nord a été jugée très faible voire nul : 1) accès très difficile (pente forte ou traversée de ruisseau nécessaire -- sinon zone enclavée par le cours d'eau) et 2) produit peu attractif dans l'ensemble (quelques sapins au Sud puis Aulnaie/Frênaie sur le reste de la parcelle -- avec quelques Chênes + souille)\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_5.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 6 : LARAJASSE}\\
+  \vspace{0.25cm}LARAJASSE : C535
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large LARAJASSE : C535
+}}
+]\noindent\textbf{\underline{Accès :}} par l'intérieur du parc ou depuis la rue des tilleuls (attention muret). Accès également possible via chemin agricole (zone d'affourage)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} seule la partie basse (carré au N) est cloisonnée. 3 cloisos numérotés. \No 3situé contre la limite Est. \No 1 et 2 Az 205 grd, entraxe 22 m\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} très variable (arbres de parc de forte dimension mélangés avec du taillis). Pas de grume marquées. Travailler la partie basse cloisonnée au Nord (grumes exceptionnelles !) ?\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Tilleul (25 \%) / Frêne (15 \%) / ERP ( 8 \%) / SAP -- dépérissant (5 \%) / ERS (5 \%) / Merisier ( 2 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} la partie haute est peu travaillée, notamment à proximité du château (arbres de parc stade GB et TGB). Le travail sur la partie haute (aucune grume prélevée) s'est limité au prélèvement des brins de taillis perçants les houppiers. Opérations d'amélioration réalisées autant que possible. Opérations sanitaires sur les Sapins.\\
+Questions laissées en suspens : Robiniers (GB / TGB) dépérissants dans la partie haute + martelage des grumes non effectué dans la partie cloisonnée (basse) -- des grumes d'une hauteur > 30 m attendent . Plusieurs Hêtre à la tête séchée au stade GB/TGB + 1 Chêne à la tête abîmée.\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_6.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 7 : SAINT--MARTIN--EN--HAUT}\\
+  \vspace{0.25cm}SAINT--MARTIN--EN--HAUT : AC223
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large SAINT--MARTIN--EN--HAUT : AC223
+}}
+]\noindent\textbf{\underline{Accès :}} Par le champ au Sud\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun. Piste déjà présente\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 25 -- 30 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (gelés essentiellement)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} rochers très présents\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_7.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 8 : SAINT--MARTIN--EN--HAUT}\\
+  \vspace{0.25cm}SAINT--MARTIN--EN--HAUT : O606
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large SAINT--MARTIN--EN--HAUT : O606
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ à l'Ouest. Talus et clôture présents sur une partie du pourtour\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 25 -- 30 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (70 \%) / Hêtre (20 \%) / Châtaignier (10 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} partie détachée du reste prospectée mais non marqué car proximité camping (+ peu d'enjeux). Piste à ouvrir\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_8.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 9 : RONTALON}\\
+  \vspace{0.25cm}RONTALON : AI12, AI18, AI19\\RONTALON : AI4\\RONTALON : AI7
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large RONTALON : AI12, AI18, AI19
+}}
+]\noindent\textbf{\underline{Accès :}} pistes existantes (à l'Est et au Sud) trop étroites pour un tracteur forestier. Problème à résoudre\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} p. AI 12 : Chêne (94 \%) / Frêne (3 \%) / Charme (2 \%) / Merisier (1 \%) \\ p. AI 18 : Chêne (70 \%) / Frêne (15 \%) / Charme (10 \%) / Merisier (5 \%) \\ p. AI 19 : Chêne (33 \%) / Frêne (34 \%) / Charme (22 \%) / Merisier (11 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} \vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large RONTALON : AI4
+}}
+]\noindent\textbf{\underline{Accès :}} par le bas ? Par la parcelle AI7 ?\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 (variable)\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} feuillus divers\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées lorsque pas évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} ancienne trouée tempête. Quelques marquages en détourage, très diffus. A exploiter en abandon ?\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large RONTALON : AI7
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ situé au Sud de la parcelle. Possibilité de l'utiliser comme place de dépôt\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} partant de la limite Est, 4 cloisonnements Az 219 gr espacés de 25 m. Puis 4 cloisonnements orientés dans le sens de la plus forte pente, espacés de 25 m environ dans la partie la plus large (bas de pente). Azimuts 369, 369, 249, 229. Les cloisonnements doivent déboucher sur le champ situé au Sud (traverser la zone de fruticées).\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 10 -- 15 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (100\%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} \vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_9.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 10 : RONTALON}\\
+  \vspace{0.25cm}RONTALON : AI168\\RONTALON : AI75\\RONTALON : AI86
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large RONTALON : AI168
+}}
+]\noindent\textbf{\underline{Accès :}} depuis la station d'épuration, accès par le chemin \\ Rqe : il existe une piste le long de la limite Nord--Ouest (dans le prolongement du chemin)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun (on préconise, depuis la limite Nord--Est : Az 355 gr, Az 345 gr, Az 335 gr, Az 325 gr)\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 10 -- 15 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Frêne (75 \%) / Chêne (20 \%) / Charme (5 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} cloisos à tracer dans le sens de la pente \\ Attention : le talus qui borde le chemin en limite de parcelle O et Nord--Ouest est trop haut (> 1,80 m) et trop abrupt (jugé infranchissable par un tracteur forestier). Les arbres du talus ont été marqués (dans l'éventualité d'un élargissement de la piste/nivellement du talus).\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large RONTALON : AI75
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ au Sud\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis : 15 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Châtaignier (70 \%) / Charme (20 \%) / Chêne (10 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} limites rematérialisées (sauf limites Nord--Est et Nord--Ouest)\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} difficulté à retrouver les limites. Peuplement fragile. Beaucoup de chablis sur le haut (Châtaignier). Châtaignier dépérissants ou secs. Potentiel d'exploitation jugé faible\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large RONTALON : AI86
+}}
+]\noindent\textbf{\underline{Accès :}} diffile -- franchissement de cours d'eau + piste trop étroite\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 3 cloisonnements marqués (Az 225 gr) + 1 collecteur déjà existant\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 20 -- 25 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (100\%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} très belle chênaie\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_10.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 11 : MEYS}\\
+  \vspace{0.25cm}MEYS : C90
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large MEYS : C90
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ à l'Ouest\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 3 cloisonnements tracés perpendiculairement à la limite O\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} cf Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} cf Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} forêt alluviale. Présence abondante d'arbustes et de fruticées. Peu ou pas de volume sur pied exploitable (quelques peupliers et chêne oubliés çà et là). Ouvrir les cloisos via un chantier de bois énergie ?\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_11.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 12 : AVEIZE}\\
+  \vspace{0.25cm}AVEIZE : B562\\AVEIZE : B563
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large AVEIZE : B562
+}}
+]\noindent\textbf{\underline{Accès :}} par le chemin botanique en bas (non calibré pour tracteur forestier) ou par la piste relevée traversant la parcelle d'Est en Ouest (cf plan)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 cm dans l'amélio de Chêne au Sud--Ouest -- 15 -- 20 cm ailleurs\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (100 \%) au Sud--Ouest (amélio); sinon essentiellement du Châtaignier dépérissant ou sec sur le reste de la parcelle : Châtaignier (90 \%) / Chêne (6 \%) / Hêtre ( 4 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes (chemins, pistes ou clôture)\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} ronce très dynamique, notamment en haut de versant. Pas ou peu de marquage dans la bas de la parcelle (après la rupture de pente).\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large AVEIZE : B563
+}}
+]\noindent\textbf{\underline{Accès :}} par le chemin botanique en bas (non calibré pour tracteur forestier) ou par la piste relevée traversant la parcelle d'Est en Ouest (cf plan)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} \vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} \vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} non rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} taillis de Châtaignier pas encore mûr. Pas ou peu de marquage.\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_12.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 13 : DUERNE}\\
+  \vspace{0.25cm}DUERNE : D565
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large DUERNE : D565
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ en haut ou par la piste en bas\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun. Possibilité de tirer un cloisonnement entre la trouée et la parcelle de Chêne, et le prolonger sur la ligne de crête jusqu'en bas ? (à voir car passage étroit à l'angle des limites…)\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Hêtre (95 \%) / Chêne (5 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} A confirmer (difficultés positionnement Iphigénie)\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} Seulement 3 -- 4 tiges marquées dans la partie au Sud--Ouest (trouée tempête). Marquage de la partie au milieu = dégagement des houppiers de Pin S en marquant les Hêtres (mais attention grosse dynamique de la ronce). Parcelle peu attractive (vis--à--vis de l'exploitation) --> affouage local ?\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_13.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 14 : DUERNE}\\
+  \vspace{0.25cm}DUERNE : D514
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large DUERNE : D514
+}}
+]\noindent\textbf{\underline{Accès :}} par la piste au Sud\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 5 cloisonnements orientés Az 200 gr et se prolongent dans la pente. N.B : le 1er se situe à 27m du coin Sud--Est -- le 2nd arrive sur l'angle de la parcelle en bas de pente (Nord). Le dernier (Ouest) raccorde avec un ancien tronçon de piste\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis : 20 -- 25 cm \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} taillis : Hêtre (70 \%) / Chêne (15 \%) / Châtaignier (15 \%) \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées lorsque pas évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} zone à l'Ouest non prospectée (tapis de ronce + taillis non mûr). Parcelle à bon potentiel d'exploitation. Les peuplements ont pu souffrir ponctuellement de coups de vents\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_14.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 15 : SAINT--MARTIN--EN--HAUT}\\
+  \vspace{0.25cm}SAINT--MARTIN--EN--HAUT : B564
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large SAINT--MARTIN--EN--HAUT : B564
+}}
+]\noindent\textbf{\underline{Accès :}} possibilité de raccorder à la piste existante dans la parcelle située à côté (Est -- voir tracé sur la carte). Place de dépôt potentielle à son extrémité. \vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (100\%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} clôture coupant la parcelle en 2\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_15.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 16 : THURINS}\\
+  \vspace{0.25cm}THURINS : AR246\\THURINS : AR249\\THURINS : AR250\\THURINS : AR253
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large THURINS : AR246
+}}
+]\noindent\textbf{\underline{Accès :}} par la piste au Nord (relevée -- non calibrée pour un tracteur forestier) ou champ au Sud.\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 1 grand cloisonnement au milieu de la parcelle (environ 15 de bande de part et d'autre) dans le sens de la pente = Az 180 gr \\ + 2 cloisonnements dans Chêne (Az 180 gr) + 1 cloiso le long de la limite Chêne/Châtaignier (Az 180 gr) + 1 cloiso dans Châtaignier (Az 210 gr). Tous les cloisonnements ont été pointés.\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis : 20 cm \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} taillis : Châtaignier (70 \%) / Chêne (30 \%) \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} \vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large THURINS : AR249
+}}
+]\noindent\textbf{\underline{Accès :}} par les pistes au Nord, au Sud ou à l'Ouest\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 4 cloisonnements (pointés). 1 = Az 185 gr; 2 = Az 185 gr; 3 = Az 200 gr; 4 = 215 gr. Entraxe = 25 m sur piste en bas \\ N.B : Cloiso 4 dans le prolongement du cloiso 4 (Az 215 gr) tracé en AR 250.\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis  : 20 cm \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Pin S (70 \%) / Châtaignier (20 \%) / Chêne (10 \%) \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} prélèvement léger, relativement plus fort qu'en AR 250.\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large THURINS : AR250
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ au Sud ou pistes au Nord\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 4 cloisonnements (pointés). 1 = Az 170 gr; 2 = Az 185 gr; 3 = Az 200 gr; 4 = Az 215 gr. Espacés de 25 m sur la piste au N. Cloiso 1 à 14 m du croisement de la piste et de la limite O\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 20 (volume de prélèvement faible) \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Pin S (70 \%) / Chêne (10 \%) / Châtaignier (20 \%) \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} prélèvement léger dans les bandes. Le peuplement a été diagnostiqué comme ayanté été trop longtemps laissé en phase de compression (rapport hauteur de houppier / hauteur totale très faible). Beaucoupe de casse à proximité de la bordure Sud -- Sud--Est. Le prélèvement des grumes pour ouvrir les cloisos a été presque toujours été jugé comme suffisant.\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large THURINS : AR253
+}}
+]\noindent\textbf{\underline{Accès :}} par le chemin au Sud. Parcelle étroite, accès facile\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 20--25 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Châtaignier (70 \%) -- part dépérissant non négligeable / Charme (15 \%) / Hêtre (15 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} question des clôtures qui seront immanquablement abîmées pendant l'abattage\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_16.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 17 : THURINS}\\
+  \vspace{0.25cm}THURINS : AD205
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large THURINS : AD205
+}}
+]\noindent\textbf{\underline{Accès :}} par la route. Piste possible en bas de versant. Attention : difficulté à prévoir pour passer le fossé en bord de route ? (passage trop étroit)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} \vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} voir Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} voir Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} taillis non mûr. Parcelle non marquée\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_17.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 18 : MONTROMANT}\\
+  \vspace{0.25cm}MONTROMANT : WC123
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large MONTROMANT : WC123
+}}
+]\noindent\textbf{\underline{Accès :}} par les routes en haut ou en bas (bâtiments le long de la route). Il existe également une piste à mi--pente (relevée au GPS)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 3 cloisonnements tracés dans le sens de la plus forte pente. 1er cloiso (à 12,5 m de la limite Sud--Ouest) descend jusqu'en bas de la parcelle (talus un peu abrupt à l'arrivée -- possible de contourner)\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} taillis : 15 cm \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} tailis : Chêne / Hêtre \\ grumes : voir feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées au Sud--Ouest\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} \vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_18.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 19 : YZERON}\\
+  \vspace{0.25cm}YZERON : AC16
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large YZERON : AC16
+}}
+]\noindent\textbf{\underline{Accès :}} accès par le champ ou par le coin Sud--Ouest du triangle\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 -- 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Hêtre (30 \%) / Chêne (60 \%) / Merisier (10 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} lot d'affouage\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_19.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 20 : COURZIEU}\\
+  \vspace{0.25cm}COURZIEU : AS30\\COURZIEU : AS35
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large COURZIEU : AS30
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ en haut, il pourrait y avoir un passage vers le coin Sud--Est de la parcelle. Sinon accès Sud --  compromis car clôture + forte pente. Sinon accès par la piste à l'Est et que l'on retrouve en bas\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun. Début d'axe positionné en bas au milieu mais question du talus trop abrupt (1m de haut dans une piste en pente).\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 -- 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Châtaignier (70 \%) / Chêne (5 \%) / Hêtre (25 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} Produit à faible valeur ajoutée + accès compliqué => affouage ?\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large COURZIEU : AS35
+}}
+]\noindent\textbf{\underline{Accès :}} voir COURZIEU AS 35 ou sinon accès par le bas (piste en bordure des résineux)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun. Parcelle = 32 m de large en haut et 45 m de large en bas. Mettre en place 2 cloisos à 10 m des limites ?\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Châtaignier (95 \%) / Hêtre (4 \%) / Chêne+TRE (1 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées (anciennes marques souvent retrouvées)\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} peuplement prometteur (bon rapport "hauteur houppier"/"hauteur totale"), notamment vers le bas.\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_20.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 21 : LONGESSAIGNE}\\
+  \vspace{0.25cm}LONGESSAIGNE : AM65\\LONGESSAIGNE : AM67
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large LONGESSAIGNE : AM65
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ en haut ou par la piste en bas\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (100\%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} très mauvais potentiel d'exploitation (abandon ?). Parcelle très atteinte par les coups de vent. 5--6 tiges marquées seulement (2 en bas car penchées ou sèches/dépérissantes). Envahissement important du noisetier sur une bonne partie de la parcelle. Vers le bas, peuplement de Chêne Pédonculé : casse importante et récente (tas de bas encore frais) + dynamiques de la ronce et du noisetier aussi très importantes.\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large LONGESSAIGNE : AM67
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ du haut\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} voir Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} voir Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} envahissement du noisetier sur plus de 50 \% de la surface. Casse à cause du vent aussi très importante. Pas de marquage réalisé\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_21.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 22 : MONTROTTIER}\\
+  \vspace{0.25cm}MONTROTTIER : AT196\\MONTROTTIER : AT209
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large MONTROTTIER : AT196
+}}
+]\noindent\textbf{\underline{Accès :}} par le champ à l'Est\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 30 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Frêne (20 \%) / AUG (80 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} sanitaire + amélio. Lot d'affouage ?\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large MONTROTTIER : AT209
+}}
+]\noindent\textbf{\underline{Accès :}} par les champs à proximité\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} quelques tiges (< 10 tiges) marquées en limites. Diamètre 15 cm \\ grumes de Douglas : voir la feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} quelques merisiers marqués en limites (< 10 tiges) \\ grumes de Douglas : voir la feuille "Cube"\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} une bonne partie de la parcelle est occupée par une prairie + crocs de pâture (Chêne). Partie non marquée. \\ Quelques merisiers marqués en limite + marquage dans le peuplement de Douglas\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_22.jpg}
+\end{center}\newpage\noindent
+\fbox{
+  \parbox{\textwidth}{\centering 
+  \textbf{
+  \Large
+  LOT 23 : POLLIONNAY}\\
+  \vspace{0.25cm}POLLIONNAY : AB142\\POLLIONNAY : AB161\\POLLIONNAY : AO81
+  }
+  }\\\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large POLLIONNAY : AB142
+}}
+]\noindent\textbf{\underline{Accès :}} parcelle au c\oe ur du massif. Pistes pas toujours calibrées pour un tracteur forestier. Voir si la piste en bas de la parcelle est empruntable depuis le bas ?\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 -- 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne (60 \%) / Châtaignier (30 \%) / Hêtre + Charme (10 \%)\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} partie haute (au--delà de la barre rocheuse) non marquée. Triangle dans la partie basse  (Mélèze) non marqué.\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large POLLIONNAY : AB161
+}}
+]\noindent\textbf{\underline{Accès :}} par la route en haut ou par la piste en bas\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} 4 cloisonnements pointés(Az 358, Az 345, Az 345, Az 302). 1er cloisonnement connecte la route en haut et la piste en bas.\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} 15 -- 20 cm\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} Chêne / Châtaignier / Hêtre\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} rematérialisées\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} parcelle relativement facile à exploiter\vspace{0.1cm} \\\end{multicols}\begin{multicols}{2}
+[
+\textbf{\textcolor{gray}{
+\large POLLIONNAY : AO81
+}}
+]\noindent\textbf{\underline{Accès :}} parcelle au c\oe ur du massif. Chemins pas calibrés sur tous les tracés (autres chemins à prospecter ?)\vspace{0.1cm} \\\noindent\textbf{\underline{Cloisonnements :}} aucun\vspace{0.1cm} \\\noindent\textbf{\underline{Diamètre moyen :}} voir Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Composition :}} voir Autres remarques\vspace{0.1cm} \\\noindent\textbf{\underline{Limites :}} évidentes\vspace{0.1cm} \\\noindent\textbf{\underline{Autres remarques :}} parcelle à faible densité de tiges (précomptables) : traces de casses par le vent. Taillis non mature. Quelques Frênes en bord de cours d'eau \\Zone à l'Ouest plus avancée (mais surface trop petite) \\ Non commercialisable + pas d'accès garanti => pas de marquage réalisé\vspace{0.1cm} \\\end{multicols}\begin{center}
+\includegraphics[width=\textwidth]{/Users/Valentin/Travail/Outils/Cartographie/dossiers/Bugnot/ASLGF/out/cartes/retour_martelage/plans/CR_martelage_lot_23.jpg}
+\end{center}\newpage
+
+
+\end{document}
